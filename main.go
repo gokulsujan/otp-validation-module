@@ -20,6 +20,7 @@ func main() {
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.POST("/sendOTP", controller.SendOTP)
+	r.POST("/verifyOTP", controller.VerifyOTP)
 	r.Run()
 
 }
