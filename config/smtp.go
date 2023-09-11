@@ -1,5 +1,7 @@
 package config
 
+import "os"
+
 var SMTPVar = struct {
 	Server   string
 	Port     string
@@ -8,6 +10,6 @@ var SMTPVar = struct {
 }{
 	Server:   "smtp.gmail.com",
 	Port:     "587",
-	Username: "theprogrammercharlie@gmail.com",
-	Password: "bxogheccanqccwig",
+	Username: os.Getenv("smtpusername"),
+	Password: os.Getenv("smtppassword"),
 }
