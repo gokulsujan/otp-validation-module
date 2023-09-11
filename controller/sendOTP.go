@@ -7,7 +7,9 @@ import (
 	"otp-verification-module/config"
 	"otp-verification-module/models"
 	"strconv"
+	"time"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -37,6 +39,10 @@ func SendOTP(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	} else {
+		session := sessions.Default(c)
+		session.Set("expirationtime"+user.Email, time.Now().Add(time.Minute*1))
+		session.Set("iamsuperkey"+user.Email, otp)
+		session.Save()
 		c.JSON(http.StatusAccepted, gin.H{"message": "Email deliverd to " + user.Email})
 	}
 
